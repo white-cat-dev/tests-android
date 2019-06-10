@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             }
             else {
                 Intent intent = new Intent(this, TestsActivity.class);
-                intent.putExtra("user_id", responseJson.getString("id"));
+                intent.putExtra("student", responseJson.getString("id"));
                 startActivity(intent);
             }
         }
@@ -75,9 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 HttpURLConnection httpConnection = (HttpURLConnection)url.openConnection();
                 httpConnection.setDoOutput(true);
                 DataOutputStream out = new DataOutputStream(httpConnection.getOutputStream());
-                out.writeBytes(postParams);
-                out.flush();
-                out.close();
+                out.write(postParams.getBytes());
 
                 BufferedReader in = new BufferedReader(new InputStreamReader(httpConnection.getInputStream()));
                 String inputLine;
