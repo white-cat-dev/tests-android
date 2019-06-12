@@ -50,8 +50,12 @@ public class TestsAdapter extends BaseAdapter {
 
         ((TextView)itemView.findViewById(R.id.title)).setText(test.title);
         ((TextView)itemView.findViewById(R.id.description)).setText(test.description);
-        String testingTime = test.testingTime + " минут";
-        ((TextView)itemView.findViewById(R.id.testingTime)).setText(testingTime);
+
+        if (test.result != null) {
+            ((Button)itemView.findViewById(R.id.button)).setText("Посмотреть ответы");
+            String result = test.result.rightAnswers + "/" + test.questionsCount;
+            ((TextView)itemView.findViewById(R.id.result)).setText(result);
+        }
 
         (itemView.findViewById(R.id.button)).setOnClickListener(view -> {
             context.loadTest(test.id);

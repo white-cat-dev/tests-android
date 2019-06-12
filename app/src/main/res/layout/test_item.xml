@@ -28,14 +28,9 @@
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textColor="@color/colorDarkGray"/>
 
-            <TextView
-                android:id="@+id/testingTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorDarkGray"
-                android:textSize="14sp"/>
         </LinearLayout>
 
         <TextView
@@ -43,21 +38,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="viewEnd"
-            android:textSize="20sp"
-            android:text="10/10"/>
+            android:textSize="20sp"/>
 
     </LinearLayout>
 
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button"
         android:textColor="@color/colorWhite"
         android:layout_marginTop="15dp"
-        android:text="Начать тест"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"/>
+        android:text="Начать тест"/>
 
 </LinearLayout>

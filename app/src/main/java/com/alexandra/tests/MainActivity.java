@@ -46,15 +46,16 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             String response = loginTask.get();
-            Log.d("1234", "response: " + response);
+            Log.d("12345", "response: " + response);
             JSONObject responseJson = new JSONObject(response);
             if (responseJson.has("error")) {
                 errorView.setText(responseJson.getString("error"));
             }
             else {
                 Intent intent = new Intent(this, TestsActivity.class);
-                intent.putExtra("student", responseJson.getString("id"));
+                intent.putExtra("student", responseJson.getInt("id"));
                 startActivity(intent);
+                finish();
             }
         }
         catch (Exception e) {

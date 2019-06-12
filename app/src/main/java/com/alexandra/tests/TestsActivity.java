@@ -36,6 +36,12 @@ public class TestsActivity extends AppCompatActivity {
         loadTests();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadTests();
+    }
+
 
     protected void loadTests() {
         LoadTestsTask loadTestsTask = new LoadTestsTask();
@@ -45,17 +51,30 @@ public class TestsActivity extends AppCompatActivity {
 
         try {
             String response = loadTestsTask.get();
-            Log.d("1234", "response: " + response);
             JSONArray testsJson = new JSONArray(response);
 
             for (int i = 0; i < testsJson.length(); i++) {
                 JSONObject testJson = (JSONObject) testsJson.get(i);
+
                 int id = testJson.getInt("id");
                 String title = testJson.getString("title");
                 String description = testJson.getString("description");
                 int testingTime = testJson.getInt("testing_time");
+                String testingTimeStr = testJson.getString("testing_time_str");
+                int questionsCount = testJson.getInt("questions_count");
+                String questionsCountStr = testJson.getString("questions_count_str");
 
-                Test test = new Test(id, title, description, testingTime, new ArrayList<>());
+                Test test = new Test(id, title, description, testingTime, testingTimeStr,
+                        questionsCount, questionsCountStr, new ArrayList<>(), null);
+
+                if (testJson.has("result")) {
+                    JSONObject resultJson = testJson.getJSONObject("result");
+                    int rightAnswers = resultJson.getInt("right_answers");
+                    int resultTestingTime = resultJson.getInt("testing_time");
+
+                    test.result = new TestResult(rightAnswers, resultTestingTime);
+                }
+
                 tests.add(test);
             }
 
@@ -69,7 +88,7 @@ public class TestsActivity extends AppCompatActivity {
 
 
     public void loadTest(int test) {
-        Intent intent = new Intent(this, TestsActivity.class);
+        Intent intent = new Intent(this, TestActivity.class);
         intent.putExtra("student", student);
         intent.putExtra("test", test);
         startActivity(intent);
